@@ -39,7 +39,6 @@
     },
     "CrmURL": {
       "type": "string",
-      "defaultValue": "https://testorg06231.api.crm10.dynamics.com/api/data/v9.2/"
     }
   
   },
@@ -1101,7 +1100,7 @@
             "displayName": "webDeploy"
           },
           "properties": {
-            "packageUri": "https://github.com/v-vaimane/PowershelllScript/blob/main/IoTHubAPIApp.zip?raw=true",
+            "packageUri": "",
             "dbType": "None",
             "connectionString": ""
           }
@@ -1171,7 +1170,7 @@
             "displayName": "webDeploy"
           },
           "properties": {
-            "packageUri": "https://github.com/v-vaimane/PowershelllScript/blob/main/CRMHelperApiApp.zip?raw=true",
+            "packageUri": "",
             "dbType": "None",
             "connectionString": ""
           }
@@ -1241,7 +1240,7 @@
             "displayName": "webDeploy"
           },
           "properties": {
-            "packageUri": "https://github.com/v-vaimane/PowershelllScript/blob/main/QueueMessageParserApiApp.zip?raw=true",
+            "packageUri": "",
             "dbType": "None",
             "connectionString": ""
           }
@@ -1312,7 +1311,7 @@
             "displayName": "webDeploy"
           },
           "properties": {
-            "packageUri": "https://github.com/v-vaimane/PowershelllScript/blob/main/Simulator.zip?raw=true",
+            "packageUri": "",
             "dbType": "None",
             "connectionString": ""
           }
