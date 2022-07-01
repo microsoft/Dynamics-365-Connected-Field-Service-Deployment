@@ -38,7 +38,7 @@
       "type": "string"
     },
     "CrmURL": {
-      "type": "string",
+      "type": "string"
     }
   
   },
