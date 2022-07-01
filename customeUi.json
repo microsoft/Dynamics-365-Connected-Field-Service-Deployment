@@ -61,7 +61,7 @@
             "name": "isPowerBI",
             "type": "Microsoft.Common.CheckBox",
             "label": "Deploy SQL Server for Power BI (optional)",
-            "toolTip": "Microsoft Power BI for device analytics can be included in your deployment. Choosing this will deploy two additional resources, Azure Streaming Analytics and SQL Server database."
+            "toolTip": "Microsoft Power BI for device analytics can be included in your deployment. Choosing this will deploy two additional resources, Azure Stream Analytics and SQL Server database."
           },
           {
             "name": "existingSQLServer",
