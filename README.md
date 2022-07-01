@@ -1,6 +1,6 @@
 # Dynamics 365 Connected Field Service, Azure Sample Template
 
-By deploying this template, you confirm that you’ve read and agree to the Terms of Service and the [Microsoft Privacy Statement](https://privacy.microsoft.com/en-us/privacystatement)
+By deploying this template, you confirm that you’ve read and agree to the [Terms of Service]() and the [Microsoft Privacy Statement](https://privacy.microsoft.com/en-us/privacystatement)
 
 [<img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true" alt="Deploy To Azure" style="max-width: 100%;">]("https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FDynamics-365-Connected-Field-Service-Deployment%2FARMDeployment%2FazureDeploy.json%3Ftoken%3DGHSAT0AAAAAABVLOZFX4JO3AKEQACZBO7QMYV6UGOQ/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FDynamics-365-Connected-Field-Service-Deployment%2Fmain%2FcustomUi.json%3Ftoken%3DGHSAT0AAAAAABVLOZFXAYU3TCH2P77UF6FAYV6VPYQ"target="_blank")
 
