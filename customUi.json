@@ -1,0 +1,135 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/0.1.2-preview/CreateUIDefinition.MultiVm.json#",
+  "handler": "Microsoft.Azure.CreateUIDef",
+  "version": "0.1.2-preview",
+  "parameters": {
+    "basics": [
+      {
+        "name": "mainSection",
+        "type": "Microsoft.Common.Section",
+        "label": "Deploying resources using ARM template",
+        "elements": [
+          {
+            "name": "crmOrgId",
+            "type": "Microsoft.Common.TextBox",
+            "label": "CRM Organization Unique Name",
+            "visible": true,
+            "constraints": {
+              "required": true
+            }
+          },
+          {
+            "name": "CrmURL",
+            "type": "Microsoft.Common.TextBox",
+            "label": "CRM Organization URL",
+            "visible": true,
+            "constraints": {
+              "required": true
+            }
+          },
+          {
+            "name": "DeploySimulator",
+            "type": "Microsoft.Common.CheckBox",
+            "label": "Deploy Simulator (optional)",
+            "toolTip": "Simulator can be included in your deployment."
+          },
+          {
+            "name": "isTimeSeriesInsight",
+            "type": "Microsoft.Common.CheckBox",
+            "label": "Deploy Azure Time Series Insights (optional)",
+            "toolTip": "Time Series Insights can be included in your deployment for detailed device insights and analytics."
+          },
+          {
+            "name": "ApplicationID",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Application (client) ID",
+            "visible": "[basics('mainSection').isTimeSeriesInsight]",
+            "constraints": {
+              "required": true
+            }
+          },
+          {
+            "name": "ClientSecretID",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Client Secret",
+            "visible": "[basics('mainSection').isTimeSeriesInsight]",
+            "constraints": {
+              "required": true
+            }
+          },
+          {
+            "name": "isPowerBI",
+            "type": "Microsoft.Common.CheckBox",
+            "label": "Deploy SQL Server for Power BI (optional)",
+            "toolTip": "Microsoft Power BI for device analytics can be included in your deployment. Choosing this will deploy two additional resources, Azure Stream Analytics and SQL Server database."
+          },
+          {
+            "name": "existingSQLServer",
+            "type": "Microsoft.Solutions.ResourceSelector",
+            "label": "SQL Server",
+            "resourceType": "Microsoft.Sql/servers",
+            "visible": "[basics('mainSection').isPowerBI]",
+            "options": {
+              "filter": {
+                "subscription": "onBasics",
+                "location": "onBasics"
+              }
+            }
+          },
+          {
+            "name": "text1",
+            "type": "Microsoft.Common.InfoBox",
+            "visible": "[basics('mainSection').isPowerBI]",
+            "options": {
+              "icon": "None",
+              "text": "Enter the new username and password for creating the database."
+            }
+          },
+          {
+            "name": "administratorLogin",
+            "type": "Microsoft.Compute.UserNameTextBox",
+            "label": "SQL Server admin username",
+            "visible": "[basics('mainSection').isPowerBI]",
+            "toolTip": "Make sure your login name meets the following requirements - It's a SQL Identifier, and not a typical system name (like admin, administrator, sa, root, dbmanager, loginmanager, etc.), or a built-in database user or role (like dbo, guest, public, etc.). Make sure your name doesn't contain whitespaces, unicode characters, or nonalphabetic characters, and that it doesn't begin with numbers or symbols.   ",
+            "constraints": {
+              "required": true,
+              "regex": "^[a-z0-9A-Z]{1,30}$",
+              "validationMessage": "Only alphanumeric characters are allowed, and the value must be 1-30 characters long."
+            },
+            "osPlatform": "Windows"
+          },
+          {
+            "name": "administratorLoginPassword",
+            "type": "Microsoft.Common.PasswordBox",
+            "label": {
+              "password": "Password",
+              "confirmPassword": "Confirm password"
+            },
+            "toolTip": "Your password cannot contain all or part of the username. Part of a username is defined as three or more consecutive alphanumeric characters.",
+            "visible": "[basics('mainSection').isPowerBI]",
+            "constraints": {
+              "required": true,
+              "customValidationMessage": "Your password cannot contain all or part of the username. Part of a username is defined as three or more consecutive alphanumeric characters."
+            },
+            "options": {
+              "hideConfirmation": false
+            }
+          }
+        ]
+      }
+    ],
+    "steps": [],
+    "outputs": {
+      "crmOrgId": "[basics('mainSection').crmOrgId]",
+      "CrmURL": "[basics('mainSection').CrmURL]",
+      "existingSQLServer": "[basics('mainSection').existingSQLServer.name]",
+      "isTimeSeriesInsight": "[basics('mainSection').isTimeSeriesInsight]",
+      "DeploySimulator": "[basics('mainSection').DeploySimulator]",
+      "ApplicationID": "[basics('mainSection').ApplicationID]",
+      "ClientSecretID": "[basics('mainSection').ClientSecretID]",
+      "isPowerBI": "[basics('mainSection').isPowerBI]",
+      "administratorLogin": "[basics('mainSection').administratorLogin]",
+      "administratorLoginPassword": "[basics('mainSection').administratorLoginPassword]"
+    }
+  }
+}
