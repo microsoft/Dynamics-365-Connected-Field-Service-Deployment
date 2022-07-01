@@ -12,7 +12,7 @@
           {
             "name": "crmOrgId",
             "type": "Microsoft.Common.TextBox",
-            "label": "CRM Organization Id",
+            "label": "CRM Organization Unique Name",
             "visible": true,
             "constraints": {
               "required": true
