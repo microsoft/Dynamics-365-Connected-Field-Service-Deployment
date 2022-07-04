@@ -31,13 +31,13 @@
             "name": "DeploySimulator",
             "type": "Microsoft.Common.CheckBox",
             "label": "Deploy Simulator (optional)",
-            "toolTip": "Simulator can be included in your deployment."
+            "toolTip": "Deploying this will help you simulate an IoT device to help you test our various flows in Connected Field Service."
           },
           {
             "name": "isTimeSeriesInsight",
             "type": "Microsoft.Common.CheckBox",
             "label": "Deploy Azure Time Series Insights (optional)",
-            "toolTip": "Time Series Insights can be included in your deployment for detailed device insights and analytics."
+            "toolTip": "Time Series Insights can be included in your deployment to provide you with IoT device insights and analytics."
           },
           {
             "name": "ApplicationID",
@@ -61,7 +61,7 @@
             "name": "isPowerBI",
             "type": "Microsoft.Common.CheckBox",
             "label": "Deploy SQL Server for Power BI (optional)",
-            "toolTip": "Microsoft Power BI for device analytics can be included in your deployment. Choosing this will deploy two additional resources, Azure Stream Analytics and SQL Server database."
+            "toolTip": "Power BI can help you analyze aggregate data accross all your IoT devices in a single view. Deploying PowerBI will also deploy two additional resources: Azure Stream Analytics and SQL Server database."
           },
           {
             "name": "existingSQLServer",
@@ -90,7 +90,7 @@
             "type": "Microsoft.Compute.UserNameTextBox",
             "label": "SQL Server admin username",
             "visible": "[basics('mainSection').isPowerBI]",
-            "toolTip": "Make sure your login name meets the following requirements - It's a SQL Identifier, and not a typical system name (like admin, administrator, sa, root, dbmanager, loginmanager, etc.), or a built-in database user or role (like dbo, guest, public, etc.). Make sure your name doesn't contain whitespaces, unicode characters, or nonalphabetic characters, and that it doesn't begin with numbers or symbols.   ",
+            "toolTip": "Make sure your login name meets the following requirements - It's a SQL Identifier, and not a typical system name (like admin, administrator, sa, root, dbmanager, loginmanager, etc.), or a built-in database user or role (like dbo, guest, public, etc.). Make sure your name doesn't contain whitespaces, unicode characters, or nonalphabetic characters, and that it doesn't begin with numbers or symbols.",
             "constraints": {
               "required": true,
               "regex": "^[a-z0-9A-Z]{1,30}$",
