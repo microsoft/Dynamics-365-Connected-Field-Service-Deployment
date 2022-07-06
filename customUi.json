@@ -13,6 +13,7 @@
             "name": "crmOrgId",
             "type": "Microsoft.Common.TextBox",
             "label": "CRM Organization Unique Name",
+            "toolTip": "You can find your organization's unique name by navigating to Advanced Settings on your Dynamics organization. Then navigate to Customizations > Developer Resources.",
             "visible": true,
             "constraints": {
               "required": true
