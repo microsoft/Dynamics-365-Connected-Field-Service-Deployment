@@ -1100,7 +1100,7 @@
             "displayName": "webDeploy"
           },
           "properties": {
-            "packageUri": "",
+            "packageUri": "https://github.com/microsoft/Dynamics-365-Connected-Field-Service-Deployment/blob/main/AppServices/IoTHubAPIApp.zip?raw=true",
             "dbType": "None",
             "connectionString": ""
           }
@@ -1170,7 +1170,7 @@
             "displayName": "webDeploy"
           },
           "properties": {
-            "packageUri": "",
+            "packageUri": "https://github.com/microsoft/Dynamics-365-Connected-Field-Service-Deployment/blob/main/AppServices/CRMHelperApiApp.zip?raw=true",
             "dbType": "None",
             "connectionString": ""
           }
@@ -1240,7 +1240,7 @@
             "displayName": "webDeploy"
           },
           "properties": {
-            "packageUri": "",
+            "packageUri": "https://github.com/microsoft/Dynamics-365-Connected-Field-Service-Deployment/blob/main/AppServices/QueueMessageParserApiApp.zip?raw=true",
             "dbType": "None",
             "connectionString": ""
           }
@@ -1311,7 +1311,7 @@
             "displayName": "webDeploy"
           },
           "properties": {
-            "packageUri": "",
+            "packageUri": "https://github.com/microsoft/Dynamics-365-Connected-Field-Service-Deployment/blob/main/AppServices/Simulator.zip?raw=true",
             "dbType": "None",
             "connectionString": ""
           }
@@ -1356,11 +1356,6 @@
       "condition": "[parameters('isPowerBI')]",
       "type": "string",
       "value": "[variables('databaseName')]"
-    },
-    "connectionString": {
-      "condition": "[parameters('isPowerBI')]",
-      "type": "string",
-      "value": "[concat('Server=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('databaseName'), ';User Id=', parameters('administratorLogin'), '@', variables('sqlServerName'), ';Password=', parameters('administratorLoginPassword'), ';')]"
     },
     "dataAccessFqdn": {
       "condition": "[parameters('isTimeSeriesInsight')]",
