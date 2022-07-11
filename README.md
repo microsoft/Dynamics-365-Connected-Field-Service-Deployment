@@ -52,4 +52,4 @@ Please refer to the instructions [here](https://docs.microsoft.com/en-us/dynamic
 
 ### Start the Azure Stream Analytics jobs
 1. Sign into the Azure portal and navigate to the Resource Group where your resources were deployed.
-2. Click to open each Stream Analytics job that was deployed and, from the Overview tab, press Start.
+2. Click to open each Stream Analytics job that was deployed and, from the Overview tab, press Start. test
