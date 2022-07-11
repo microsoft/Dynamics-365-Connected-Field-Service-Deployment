@@ -1,4 +1,4 @@
-# Dynamics 365 Connected Field Service, Azure Sample Template
+# Dynamics 365 Connected Field Service - Azure IoT Deployment Template
 
 By deploying this template, you confirm that you’ve read and agree to the [Terms of Service]() and the [Microsoft Privacy Statement](https://privacy.microsoft.com/en-us/privacystatement)
 
@@ -14,22 +14,23 @@ There are three ways you can use to connect IoT-enabled devices into the Field S
 
 This repo will help you set up and configure Connected Field Service with Azure IoT Hub. For more information on using other providers, please see our documentation page here: [Connected Field Service - Overview | Microsoft Docs](https://docs.microsoft.com/en-us/dynamics365/field-service/connected-field-service)
 
-Connected Field Service for Azure IoT Hub is an add-on solution that brings Azure IoT platform-as-a-service (PaaS) offering into Dynamics365 for Field Service. With this offering, you can run a deployment app to put all the Azure IoT services and Dynamics puzzles together. All Azure IoT services run in your own Azure cloud subscription.  
+Connected Field Service for Azure IoT Hub is an add-on solution that brings Azure IoT platform-as-a-service (PaaS) offering into Dynamics 365 for Field Service. With this offering, you can use this template and below instructions to put all the Azure IoT services and Dynamics puzzles together. All Azure IoT services run in your own Azure cloud subscription.
+
 This deployment package will help you:
-A) Deploy and configure an IoT Hub instance. Connected Field Services uses the IoT Hub to manage the state of registered devices and assets. In addition, the IoT Hub sends commands and notifications to connected devices—and tracks message delivery with acknowledgement receipts.
-B) Deploy a device simulation (optional). This is a test web app to emulate the device that is sending commands or receiving commands from the IoT Hub.
-C) Deploy Time Series Insight (optional). Time Series Insights can be included in your deployment for detailed device insights and analytics.
-D) Deploy PowerBI (optional). Microsoft Power BI for device analytics can be included in your deployment. Choosing this will deploy two additional resources, Azure Streaming Analytics and SQL Server database.
+- Deploy and configure an IoT Hub instance. Connected Field Services uses the IoT Hub to manage the state of registered devices and assets. In addition, the IoT Hub sends commands and notifications to connected devices—and tracks message delivery with acknowledgement receipts.
+- Deploy a device simulation (optional). This is a test web app to emulate the device that is sending commands or receiving commands from the IoT Hub.
+- Deploy Time Series Insight (optional). Time Series Insights can be included in your deployment for detailed device insights and analytics.
+- Deploy PowerBI (optional). Microsoft Power BI for device analytics can be included in your deployment. Choosing this will deploy two additional resources, Azure Streaming Analytics and SQL Server database.
 
-# Post Deployment Steps
+## Post Deployment Steps
 
-After deploying Azure resource from ARM template, follow below steps to complete the deployment -
+After deploying Azure resource from ARM template, follow the below steps to complete the deployment.
 
-# Authorize API Connection between Dynamics 365 and Azure IoT
+### Authorize API Connection between Dynamics 365 and Azure IoT
 
-Please refer instruction [here](https://docs.microsoft.com/en-us/dynamics365/field-service/cfs-authorize-api-connection) This is required to begin using Connected Field Service with IoT Hub
+Please refer to the instructions [here](https://docs.microsoft.com/en-us/dynamics365/field-service/cfs-authorize-api-connection). This is required to begin using Connected Field Service with IoT Hub.
 
-# Create new IoT Provider Instance
+### Create new IoT Provider Instance
 
 1. Login to your Dynamics 365 organization and open Connected Field Service application
 2. From site map, go to Settings -> Providers and click New to create a new IoT Provider Instance
@@ -37,11 +38,14 @@ Please refer instruction [here](https://docs.microsoft.com/en-us/dynamics365/fie
    - For Name, enter the name of the Resource Group in Azure where you deployed IoT resources.
    - For IoT Provider, choose "IoT Hub Provider".
    - For Provider Instance Id, enter the name of the IoT Hub resource that was deployed to your Resource Group in Azure.
-   - For URL, enter the URL of the overview for the Resource Group in the Azure portal (e.g. https://portal.azure.com/[tenant_info]/subscriptions/[subscription_id]/resourceGroups/[resource_group_name]/overview)
+   - For URL, enter the URL of the overview for the Resource Group in the Azure portal (e.g. `https://portal.azure.com/[tenant_info]/subscriptions/[subscription_id]/resourceGroups/[resource_group_name]/overview`)
 4. Click Save or Save & Close to create new IoT Provide Instance record
 
-# Update the IoT Settings record
+### Update the IoT Settings record
+1. From the sitemap, click IoT Settings and then click on IoT Provider Settings tab
+2. Set Default IoT Provide Instance to the IoT Provider Instance created previously
+3. Click Save or Save & Close to save your changes
 
-- From the sitemap, click IoT Settings and then click on IoT Provider Settings tab
-- Set Default IoT Provide Instance to the IoT Provider Instance created previously
-- Click Save or Save & Close to save your changes
+### Start the Azure Stream Analytics jobs
+1. Sign into the Azure portal and navigate to the Resource Group where your resources were deployed.
+2. Click to open each Stream Analytics job that was deployed and, from the Overview tab, press Start:
