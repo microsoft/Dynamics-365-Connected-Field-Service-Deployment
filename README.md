@@ -1,9 +1,6 @@
 # Dynamics 365 Connected Field Service - Azure IoT Deployment Template
 
-By deploying this template, you confirm that you’ve read and agree to the [Terms of Service]() and the [Microsoft Privacy Statement](https://privacy.microsoft.com/en-us/privacystatement)
-
-[<img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true" alt="Deploy To Azure" style="max-width: 100%;">]("https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FDynamics-365-Connected-Field-Service-Deployment%2FARMDeployment%2FazureDeploy.json%3Ftoken%3DGHSAT0AAAAAABVLOZFX4JO3AKEQACZBO7QMYV6UGOQ/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FDynamics-365-Connected-Field-Service-Deployment%2Fmain%2FcustomUi.json%3Ftoken%3DGHSAT0AAAAAABVLOZFXAYU3TCH2P77UF6FAYV6VPYQ"target="_blank")
-
+## Overview
 Connected Field Service enables organizations to transform the way they provide service from a costly break-fix model to a proactive and predictive service model through the combination of IoT diagnostics, scheduling, asset maintenance, and inventory on the same platform.
 Connected Field Service enables organizations to transform the way they provide service from a costly break-fix model to a proactive and predictive service model through the combination of IoT diagnostics, scheduling, asset maintenance, and inventory on the same platform.
 There are three ways you can use to connect IoT-enabled devices into the Field Service solution:
@@ -22,7 +19,14 @@ This deployment package will help you:
 - Deploy Time Series Insight (optional). Time Series Insights can be included in your deployment for detailed device insights and analytics.
 - Deploy PowerBI (optional). Microsoft Power BI for device analytics can be included in your deployment. Choosing this will deploy two additional resources, Azure Streaming Analytics and SQL Server database.
 
-## Post Deployment Steps
+## Deployment steps
+By deploying this template, you confirm that you’ve read and agree to the [Terms of Service]() and the [Microsoft Privacy Statement](https://privacy.microsoft.com/en-us/privacystatement)
+
+[<img src="https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true" alt="Deploy To Azure" style="max-width: 100%;">]("https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FDynamics-365-Connected-Field-Service-Deployment%2FARMDeployment%2FazureDeploy.json%3Ftoken%3DGHSAT0AAAAAABVLOZFX4JO3AKEQACZBO7QMYV6UGOQ/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FDynamics-365-Connected-Field-Service-Deployment%2Fmain%2FcustomUi.json%3Ftoken%3DGHSAT0AAAAAABVLOZFXAYU3TCH2P77UF6FAYV6VPYQ"target="_blank")
+
+**Note**: During deployment you'll be asked to provide your organization's unique name. You can find your organization's unique name by navigating to Advanced Settings on your Dynamics organization. Then navigate to Customizations > Developer Resources.
+
+## Post deployment Steps
 
 After deploying Azure resource from ARM template, follow the below steps to complete the deployment.
 
@@ -48,4 +52,4 @@ Please refer to the instructions [here](https://docs.microsoft.com/en-us/dynamic
 
 ### Start the Azure Stream Analytics jobs
 1. Sign into the Azure portal and navigate to the Resource Group where your resources were deployed.
-2. Click to open each Stream Analytics job that was deployed and, from the Overview tab, press Start:
+2. Click to open each Stream Analytics job that was deployed and, from the Overview tab, press Start.
