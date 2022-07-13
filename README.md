@@ -19,7 +19,7 @@ This deployment package will help you:
 - Deploy Time Series Insight (optional). Time Series Insights can be included in your deployment for detailed device insights and analytics.
 - Deploy PowerBI (optional). Microsoft Power BI for device analytics can be included in your deployment. Choosing this will deploy two additional resources, Azure Streaming Analytics and SQL Server database.
 
-#Before Deployment
+## Before Deployment
 Get your Organization's unique name before you proceed with the deployment. You can find it by navigating to Advanced Settings on your Dynamics organization. Then navigate to Customizations > Developer Resources.
 
 ## Deployment steps
