@@ -19,6 +19,9 @@ This deployment package will help you:
 - Deploy Time Series Insight (optional). Time Series Insights can be included in your deployment for detailed device insights and analytics.
 - Deploy PowerBI (optional). Microsoft Power BI for device analytics can be included in your deployment. Choosing this will deploy two additional resources, Azure Streaming Analytics and SQL Server database.
 
+#Before Deployment
+Get your Organization's unique name before you proceed with the deployment. You can find it by navigating to Advanced Settings on your Dynamics organization. Then navigate to Customizations > Developer Resources.
+
 ## Deployment steps
 By deploying this template, you confirm that you’ve read and agree to the [Terms of Service](https://github.com/microsoft/Dynamics-365-Connected-Field-Service-Deployment/blob/main/Terms_of_Service.md) and the [Microsoft Privacy Statement](https://privacy.microsoft.com/en-us/privacystatement)
 
