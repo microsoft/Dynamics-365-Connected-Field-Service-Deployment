@@ -418,11 +418,11 @@
           "$connections": {
             "value": {
               "servicebus": {
-                "id": "[concat('/subscriptions/', variables('subscriptionId'), '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/',variables('serviceBusNamespaceName'))]",
+                "id": "[concat('/subscriptions/', variables('subscriptionId'), '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/servicebus')]",
                 "connectionId": "[resourceId('Microsoft.Web/connections', variables('connections_SBMessage_name'))]"
               },
               "commondataservice": {
-                "id": "[concat('/subscriptions/', variables('subscriptionId'), '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/',variables('commondataserviceName'))]",
+                "id": "[concat('/subscriptions/', variables('subscriptionId'), '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/commondataserviceName')]",
                 "connectionId": "[resourceId('Microsoft.Web/connections', variables('commondataserviceName'))]"
 
               }
@@ -492,7 +492,7 @@
                   "type": "Http",
                   "inputs": {
                     "body": {
-                      "ConnectionString": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey={primaryKey}')]",
+                      "connectionString": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=',listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys',variables('hubName'),'iothubowner'),'2017-01-19').primaryKey)]",
                       "DeviceIds": "@{body('GetCRMMessage').messageParameters?.DeviceIds}",
                       "IncludeMetadata": "false"
                     },
@@ -582,7 +582,7 @@
                   "type": "Http",
                   "inputs": {
                     "body": {
-                      "ConnectionString": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey={primaryKey}')]",
+                      "connectionString": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=',listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys',variables('hubName'),'iothubowner'),'2017-01-19').primaryKey)]",
                       "DeviceIds": "@body('GetCRMMessage').messageParameters.DeviceIds",
                       "DeviceTags": "@body('GetCRMMessage').messageParameters?.IoTDeviceTags",
                       "DeviceProperties": "@body('GetCRMMessage').messageParameters?.IoTDeviceSettings"
@@ -671,13 +671,13 @@
                   "type": "Http",
                   "inputs": {
                     "body": {
-                      "ConnectionString": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey={primaryKey}')]",
+                      "connectionString": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=',listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys',variables('hubName'),'iothubowner'),'2017-01-19').primaryKey)]",
                       "DeviceId": "@body('GetCRMMessage').messageParameters?.preImageAttributes?.msdyn_deviceid",
                       "DeviceTags": "@body('GetCRMMessage').messageParameters?.attributes?.msdyn_tags",
                       "DeviceProperties": "@body('GetCRMMessage').messageParameters?.attributes?.msdyn_devicesettings"
                     },
                     "method": "post",
-                    "uri": "[concat('https://', variables('hubName'), '.azurewebsites.net:443/UpdateDeviceTwin')]"
+                    "uri": "[concat('https://', variables('IotHubAppName'), '.azurewebsites.net:443/UpdateDeviceTwin')]"
                   }
                 }
               },
@@ -707,7 +707,7 @@
                       "type": "Http",
                       "inputs": {
                         "body": {
-                          "ConnectionString": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey={primaryKey}')]",
+                          "connectionString": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=',listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys',variables('hubName'),'iothubowner'),'2017-01-19').primaryKey)]",
                           "DeviceId": "@body('GetCRMMessage').messageParameters.attributes.msdyn_deviceid",
                           "Message": "@coalesce(body('GetCRMMessage').messageParameters.attributes.msdyn_message, '')"
                         },
