@@ -127,7 +127,10 @@
         "parameterValues": {
           "connectionString": "[listKeys(resourceId('Microsoft.ServiceBus/namespaces/AuthorizationRules',variables('serviceBusNamespaceName'),'RootManageSharedAccessKey'),'2017-04-01').primaryConnectionString]"
         }
-      }
+      },
+      "dependsOn": [
+            "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
+          ]
     },
     /*servicePlanTemplate.json*/
     {
@@ -315,11 +318,12 @@
         ],
         "dependsOn":[
           "[resourceId('Microsoft.Devices/IotHubs', variables('hubName'))]",
-          "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+          "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+          "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
         ]
       }
     },
-    /*crmToIoTLogicAppTemplate.json*/
+    /*ioTToCrmLogicAppTemplate.json*/
     {
       "type": "Microsoft.Logic/workflows",
       "apiVersion": "2017-07-01",
@@ -432,10 +436,16 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Web/connections', variables('commondataserviceName'))]",
-        "[resourceId('Microsoft.Web/connections', variables('connections_SBMessage_name'))]"
+        "[resourceId('Microsoft.Web/connections', variables('connections_SBMessage_name'))]",
+        "[resourceId('Microsoft.Devices/IotHubs', variables('hubName'))]",
+        "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]",
+        "[concat('Microsoft.Web/sites/', variables('CRMHelperAppName'))]",
+        "[concat('Microsoft.Web/sites/', variables('IotHubAppName'))]",
+        "[concat('Microsoft.Web/sites/', variables('QueueMessageParserAppName'))]",
+        "[concat('Microsoft.Web/sites/', variables('SimulatorAppName'))]"
       ]
     },
-    /*ioTToCrmLogicAppTemplate.json*/
+    /*crmToIoTLogicAppTemplate.json*/
     {
       "type": "Microsoft.Logic/workflows",
       "apiVersion": "2017-07-01",
@@ -843,7 +853,13 @@
       },
       "dependsOn": [
         "[resourceId('Microsoft.Web/connections', variables('commondataserviceName'))]",
-        "[resourceId('Microsoft.Web/connections', variables('connections_SBMessage_name'))]"
+        "[resourceId('Microsoft.Web/connections', variables('connections_SBMessage_name'))]",
+        "[resourceId('Microsoft.Devices/IotHubs', variables('hubName'))]",
+        "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]",
+        "[concat('Microsoft.Web/sites/', variables('CRMHelperAppName'))]",
+        "[concat('Microsoft.Web/sites/', variables('IotHubAppName'))]",
+        "[concat('Microsoft.Web/sites/', variables('QueueMessageParserAppName'))]",
+        "[concat('Microsoft.Web/sites/', variables('SimulatorAppName'))]"
       ]
     },
     {
@@ -875,7 +891,10 @@
           "type": "Microsoft.Web/locations/managedApis"
         },
         "testLinks": []
-      }
+      },
+       "dependsOn": [
+            "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]"
+          ]
     },
     /*timeSeriesInsightTempalte.json*/
     {
@@ -897,6 +916,8 @@
         "timeSeriesIdProperties": "[parameters('environmentTimeSeriesIdProperties')]"
       },
       "dependsOn": [
+        "[resourceId('Microsoft.Devices/IotHubs', variables('hubName'))]",
+        //"[concat('Microsoft.Devices/iotHubs/eventhubEndpoints/ConsumerGroups', variables('iotHubConsumerGroupName'))]",
         "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
       ],
       "resources": [
@@ -916,11 +937,21 @@
             "timestampPropertyName": "[variables('eventSourceTimestampPropertyName')]"
           },
           "dependsOn": [
+            "[resourceId('Microsoft.Devices/IotHubs', variables('hubName'))]",
             "[resourceId('Microsoft.TimeSeriesInsights/environments', variables('timeSeriesInsightsName'))]",
-            "[resourceId('Microsoft.Devices/IotHubs', variables('hubName'))]"
+            //"[concat('Microsoft.Devices/iotHubs/eventhubEndpoints/ConsumerGroups', variables('iotHubConsumerGroupName'))]"
           ]
         }
       ]
+    },
+    {
+      //"condition": "[parameters('isTimeSeriesInsight')]",
+      "apiVersion": "2017-01-19",
+      "type": "Microsoft.Devices/IotHubs/eventhubEndpoints/ConsumerGroups",
+      "name": "[concat(variables('hubName'), '/events/', variables('iotHubConsumerGroupName'))]",
+      "dependsOn": [
+            "[resourceId('Microsoft.Devices/IotHubs', variables('hubName'))]"
+          ]
     },
     /*SQLDbTemplate.json*/
     {
@@ -1039,6 +1070,11 @@
             "query": "[variables('telemetryRulesQuery')]"
           }
         },
+        "dependsOn": [
+        "[resourceId('Microsoft.Devices/IotHubs', variables('hubName'))]",
+        "[concat('Microsoft.Sql/servers', variables('sqlserverName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+      ],
         "outputs": [
           {
             "name": "PowerBISQL",
@@ -1126,7 +1162,8 @@
         }
       ],
       "dependsOn": [
-        "[concat('Microsoft.Web/serverfarms/', variables('svcPlanName'))]"
+        "[concat('Microsoft.Web/serverfarms/', variables('svcPlanName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
       ]
     },
     {
@@ -1196,7 +1233,8 @@
         }
       ],
       "dependsOn": [
-        "[concat('Microsoft.Web/serverfarms/', variables('svcPlanName'))]"
+        "[concat('Microsoft.Web/serverfarms/', variables('svcPlanName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
       ]
     },
     {
@@ -1265,8 +1303,9 @@
           }
         }
       ],
-      "dependsOn": [
-        "[concat('Microsoft.Web/serverfarms/', variables('svcPlanName'))]"
+       "dependsOn": [
+        "[concat('Microsoft.Web/serverfarms/', variables('svcPlanName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
       ]
     },
     {
@@ -1304,7 +1343,8 @@
         }
       ],
       "dependsOn": [
-        "[concat('Microsoft.Web/serverfarms/', variables('svcPlanName'))]"
+        "[concat('Microsoft.Web/serverfarms/', variables('svcPlanName'))]",
+        "[concat('Microsoft.Devices/Iothubs/', variables('hubName'))]"
       ]
     }
   ],
@@ -1346,6 +1386,10 @@
     "dataAccessFqdn": {
       "condition": "[parameters('isTimeSeriesInsight')]",
       "value": "[reference(resourceId('Microsoft.TimeSeriesInsights/environments', variables('timeSeriesInsightsName')), '2020-05-15').dataAccessFqdn]",
+      "type": "string"
+    },
+    "resourceId": {
+      "value": "[resourceId('Microsoft.Devices/IotHubs/Iothubkeys', variables('hubName'), 'iothubowner')]",
       "type": "string"
     }
   }
