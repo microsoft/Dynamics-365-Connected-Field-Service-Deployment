@@ -598,7 +598,7 @@
                       "DeviceProperties": "@body('GetCRMMessage').messageParameters?.IoTDeviceSettings"
                     },
                     "method": "post",
-                    "uri": "[concat('https://', variables('IotHubAppName'), '.azurewebsites.net:443/RetrieveIoTHubDeviceTwins')]"
+                    "uri": "[concat('https://', variables('IotHubAppName'), '.azurewebsites.net:443/RegisterAndEnableDevices')]"
 
                   }
                 },
@@ -938,7 +938,7 @@
           },
           "dependsOn": [
             "[resourceId('Microsoft.Devices/IotHubs', variables('hubName'))]",
-            "[resourceId('Microsoft.TimeSeriesInsights/environments', variables('timeSeriesInsightsName'))]",
+            "[resourceId('Microsoft.TimeSeriesInsights/environments', variables('timeSeriesInsightsName'))]"
             //"[concat('Microsoft.Devices/iotHubs/eventhubEndpoints/ConsumerGroups', variables('iotHubConsumerGroupName'))]"
           ]
         }
