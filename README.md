@@ -22,7 +22,7 @@ This deployment package will help you:
 ## Deployment steps
 By deploying this template, you confirm that you’ve read and agree to the [Terms of Service](https://github.com/microsoft/Dynamics-365-Connected-Field-Service-Deployment/blob/main/Terms_of_Service.md) and the [Microsoft Privacy Statement](https://privacy.microsoft.com/en-us/privacystatement)
 
-[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FDynamics-365-Connected-Field-Service-Deployment%2Fmain%2FazureDeploy.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FDynamics-365-Connected-Field-Service-Deployment%2Fmain%2FcustomUi.json)
+[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FDynamics-365-Connected-Field-Service-Deployment%2Fusers-nickrm101-crmhelper%2FazureDeploy.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FDynamics-365-Connected-Field-Service-Deployment%2Fmain%2FcustomUi.json)
 
 **Note**: During deployment you'll be asked to provide your organization's unique name. You can find your organization's unique name by navigating to Advanced Settings on your Dynamics organization. Then navigate to Customizations > Developer Resources.
 
