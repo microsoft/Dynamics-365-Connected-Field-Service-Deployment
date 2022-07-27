@@ -1191,7 +1191,7 @@
             "displayName": "webDeploy"
           },
           "properties": {
-            "packageUri": "https://github.com/microsoft/Dynamics-365-Connected-Field-Service-Deployment/blob/main/AppServices/CRMHelperApiApp.zip?raw=true",
+            "packageUri": "https://github.com/microsoft/Dynamics-365-Connected-Field-Service-Deployment/blob/users-nickrm101-crmhelper/AppServices/CRMHelperApiApp.zip?raw=true",
             "dbType": "None",
             "connectionString": ""
           }
