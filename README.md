@@ -41,7 +41,7 @@ Please refer to the instructions [here](https://docs.microsoft.com/en-us/dynamic
 
 In order to enable the communication between your CRM organization and IoT Hub, configuring the Service Endpoint in CRM organization is mandatory. You can configure it by running the ConfigureIoTEndpoint tool which is present in the repository [here](). Please follow the instructions below to run the tool.
 
-1. Downlod tool's zip file and extract it on your local machine
+1. Download tool's zip file and extract it on your local machine
 2. Open the command prompt (in admin mode) on your local machine and navigate to the path where you extracted the tool
 3. Run the command -
    ConfigureIoTEndpoint.exe -u &lt;XXXX&gt; -p &lt;YYYY&gt; -s &lt;ZZZ&gt; -k &lt;AAA&gt; -q &lt;BBB&gt; -d &lt;CCC&gt;
@@ -56,7 +56,7 @@ In order to enable the communication between your CRM organization and IoT Hub, 
    - CCC - Your D365 organization's fulle name without "https://"
 
    Example:
-   ConfigureIoTEndpoint.exe -u contoso@yourcrmtenant.onmicrosoft.com -p xxxxxx -s sukrisdemo6388cc05a2f544d08b7c901ef02b563a -k xxxxxxxxxxxxxxxxx -q sukrisdemo-crm -d yourorgname.crm.dynamics.com
+   ConfigureIoTEndpoint.exe -u contoso@yourcrmtenant.onmicrosoft.com -p xxxxxx -s armdemo6388cc05a2f544d08b7c901ef02b563a -k xxxxxxxxxxxxxxxxx -q armdemo-crm -d yourorgname.crm.dynamics.com
 
 ### Create new IoT Provider Instance
 
