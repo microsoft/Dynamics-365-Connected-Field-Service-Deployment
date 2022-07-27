@@ -1,6 +1,7 @@
 # Dynamics 365 Connected Field Service - Azure IoT Deployment Template
 
 ## Overview
+
 Connected Field Service enables organizations to transform the way they provide service from a costly break-fix model to a proactive and predictive service model through the combination of IoT diagnostics, scheduling, asset maintenance, and inventory on the same platform.
 Connected Field Service enables organizations to transform the way they provide service from a costly break-fix model to a proactive and predictive service model through the combination of IoT diagnostics, scheduling, asset maintenance, and inventory on the same platform.
 There are three ways you can use to connect IoT-enabled devices into the Field Service solution:
@@ -14,12 +15,14 @@ This repo will help you set up and configure Connected Field Service with Azure 
 Connected Field Service for Azure IoT Hub is an add-on solution that brings Azure IoT platform-as-a-service (PaaS) offering into Dynamics 365 for Field Service. With this offering, you can use this template and below instructions to put all the Azure IoT services and Dynamics puzzles together. All Azure IoT services run in your own Azure cloud subscription.
 
 This deployment package will help you:
+
 - Deploy and configure an IoT Hub instance. Connected Field Services uses the IoT Hub to manage the state of registered devices and assets. In addition, the IoT Hub sends commands and notifications to connected devices—and tracks message delivery with acknowledgement receipts.
 - Deploy a device simulation (optional). This is a test web app to emulate the device that is sending commands or receiving commands from the IoT Hub.
 - Deploy Time Series Insight (optional). Time Series Insights can be included in your deployment for detailed device insights and analytics.
 - Deploy PowerBI (optional). Microsoft Power BI for device analytics can be included in your deployment. Choosing this will deploy two additional resources, Azure Streaming Analytics and SQL Server database.
 
 ## Deployment steps
+
 By deploying this template, you confirm that you’ve read and agree to the [Terms of Service](https://github.com/microsoft/Dynamics-365-Connected-Field-Service-Deployment/blob/main/Terms_of_Service.md) and the [Microsoft Privacy Statement](https://privacy.microsoft.com/en-us/privacystatement)
 
 [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FDynamics-365-Connected-Field-Service-Deployment%2Fmain%2FazureDeploy.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Fmicrosoft%2FDynamics-365-Connected-Field-Service-Deployment%2Fmain%2FcustomUi.json)
@@ -34,6 +37,27 @@ After deploying Azure resource from ARM template, follow the below steps to comp
 
 Please refer to the instructions [here](https://docs.microsoft.com/en-us/dynamics365/field-service/cfs-authorize-api-connection). This is required to begin using Connected Field Service with IoT Hub.
 
+### Configure Service Endpoint
+
+In order to enable the communication between your CRM organization and IoT Hub, configuring the Service Endpoint in CRM organization is mandatory. You can configure it by running the ConfigureIoTEndpoint tool which is present in the repository [here](). Please follow the instructions below to run the tool.
+
+1. Downlod tool's zip file and extract it on your local machine
+2. Open the command prompt (in admin mode) on your local machine and navigate to the path where you extracted the tool
+3. Run the command -
+   ConfigureIoTEndpoint.exe -u &lt;XXXX&gt; -p &lt;YYYY&gt; -s &lt;ZZZ&gt; -k &lt;AAA&gt; -q &lt;BBB&gt; -d &lt;CCC&gt;
+
+   Where -
+
+   - XXX - Username used for logging in to your online D365 organization
+   - YYY - Password (in quotes) used for logging in to your online D365 organization
+   - ZZZ - Service Bus name. You can find it by logging in to your Azure portal and navigating to the Resource Group where your resources are deployed. From the Resources tab open resource of type Service Bus Namespace. Click on three dots (...) and select Copy title to Clipboard
+   - AAA - Service Bus Key. On the same page, in left menu, under Settings click on Shared Access Policies > RootManageSharedAccessKey > Primary Key. Copy the Primary Key value.
+   - BBB - Queue Name in Service Bus. Open the resource of type Service Bus Namespace. In left menu, under Entities click on Queues. Copy the queue name ending with "-crm"
+   - CCC - Your D365 organization's fulle name without "https://"
+
+   Example:
+   ConfigureIoTEndpoint.exe -u contoso@yourcrmtenant.onmicrosoft.com -p xxxxxx -s sukrisdemo6388cc05a2f544d08b7c901ef02b563a -k xxxxxxxxxxxxxxxxx -q sukrisdemo-crm -d yourorgname.crm.dynamics.com
+
 ### Create new IoT Provider Instance
 
 1. Login to your Dynamics 365 organization and open Connected Field Service application
@@ -46,10 +70,12 @@ Please refer to the instructions [here](https://docs.microsoft.com/en-us/dynamic
 4. Click Save or Save & Close to create new IoT Provide Instance record
 
 ### Update the IoT Settings record
+
 1. From the sitemap, click IoT Settings and then click on IoT Provider Settings tab
 2. Set Default IoT Provide Instance to the IoT Provider Instance created previously
 3. Click Save or Save & Close to save your changes
 
 ### Start the Azure Stream Analytics jobs
+
 1. Sign into the Azure portal and navigate to the Resource Group where your resources were deployed.
 2. Click to open each Stream Analytics job that was deployed and, from the Overview tab, press Start.
