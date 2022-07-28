@@ -425,7 +425,7 @@
                 "connectionId": "[resourceId('Microsoft.Web/connections', variables('connections_SBMessage_name'))]"
               },
               "commondataservice": {
-                "id": "[concat('/subscriptions/', variables('subscriptionId'), '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/commondataserviceName')]",
+                "id": "[concat('/subscriptions/', variables('subscriptionId'), '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/commondataservice')]",
                 "connectionId": "[resourceId('Microsoft.Web/connections', variables('commondataserviceName'))]"
 
               }
