@@ -6,7 +6,7 @@ Connected Field Service enables organizations to transform the way they provide 
 There are three ways you can use to connect IoT-enabled devices into the Field Service solution:
 
 - Connected Field Service for [Azure IoT Central](https://azure.microsoft.com/services/iot-central/)
-- Connected Field Service for [Azure IoT Hub](https://azure.microsoft.com//services/iot-hub/)
+- Connected Field Service for [Azure IoT Hub](https://azure.microsoft.com/services/iot-hub/)
 - Connected Field Service for non-Azure IoT providers using the extensible IoT provider framework
 
 This repo will help you set up and configure Connected Field Service with Azure IoT Hub. For more information on using other providers, please see our documentation page here: [Connected Field Service - Overview | Microsoft Docs](https://docs.microsoft.com/dynamics365/field-service/connected-field-service)
