@@ -44,10 +44,10 @@
   },
   "variables": {
     "discoveryServerSuffix1":"[split(parameters('CrmURL'),'.')]" ,
-    "discoveryServerSuffix3":"[skip(variables('discoveryServerSuffix1'),2)]",
+    "discoveryServerSuffix3":"[skip(variables('discoveryServerSuffix1'),1)]",
     "discoveryServerSuffix4":"[take(variables('discoveryServerSuffix3'),1)]",
-    "discoveryServerSuffix5": "[replace(replace(string(variables('discoveryServerSuffix4')), '[', ''), ']', '')]", 
-    "discoveryServerSuffix": "[replace(replace(string(variables('discoveryServerSuffix5')), '\"', ''), '\"', '')]",
+    "discoveryServerSuffix5": "[replace(replace(string(variables('discoveryServerSuffix4')), '\"', ''), '\"', '')]",
+    "discoveryServerSuffix": "[replace(replace(string(variables('discoveryServerSuffix5')), '[', ''), ']', '')]",
     "resourceGroupName": "[resourceGroup().name]",
     "uniqueIdentifier": "[uniqueString(resourceGroup().id)]",
     "subscriptionId": "[subscription().subscriptionId]",
