@@ -50,6 +50,15 @@ Please refer to the instructions [here](https://docs.microsoft.com/en-us/dynamic
 2. Set Default IoT Provide Instance to the IoT Provider Instance created previously
 3. Click Save or Save & Close to save your changes
 
+### Upload devicerules.json
+The Stream Analytics job deployed to your resource group will have a reference to a devicerules.json file. This file defines a rule that is useful for creating IoT Alerts when using the thermostat Simulator app. To make use of this, you will need to upload the devicerules.json file to the Azure storage. This file is found in this GitHub repo.
+
+1. In the storage account deployed to your resource group, create a container called devicerules
+2. In the storage account, use Storage Browser to open the newly created devicerules container
+3. Add a directory inside the container named 2016-05-30
+4. Inside the 2016-05-30 directory, create another directory called 22-40
+5. Inside the 22-40 directory, upload the devicerules.json file found in this GitHub repo
+
 ### Start the Azure Stream Analytics jobs
 1. Sign into the Azure portal and navigate to the Resource Group where your resources were deployed.
 2. Click to open each Stream Analytics job that was deployed and, from the Overview tab, press Start.
