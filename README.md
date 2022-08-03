@@ -79,3 +79,45 @@ The Stream Analytics job deployed to your resource group will have a reference t
 ### Start the Azure Stream Analytics jobs
 1. Sign into the Azure portal and navigate to the Resource Group where your resources were deployed.
 2. Click to open each Stream Analytics job that was deployed and, from the Overview tab, press Start.
+
+### Update TSI connection
+If you're working with Azure Time Series Insights, you'll need to update some information in your Dynamics 365 org.
+
+1. Open up the Connected Field Service app module in your Dynamics 365 org.
+2. Open the browser developer tools and open the console.
+3. Enter and the below script into the console and run it, replacing the Value parameter with your Application (client) Id
+4. Execute the script twice more, replacing the Key first with TSI_PLUGIN_CLIENT_SECRET then with TSI_BEARER_TOKEN, and replacing the Value with the respective values.
+
+```javascript
+var req = {};
+
+req.getMetadata = function () {
+    return {
+        boundParameter: null,
+        parameterTypes: {
+            "Key": {
+                "typeName": "Edm.String",
+                "structuralProperty": 1
+            },
+            "Value": {
+                "typeName": "Edm.String",
+                "structuralProperty": 1
+            },
+        },
+        operationType: 0,
+        operationName: "msdyn_IoTSetConfiguration"
+    };
+};
+
+req["Key"]="TSI_PLUGIN_AZURE_TENANT_ID";
+req["Value"]="REPLACE";
+
+Xrm.WebApi.online.execute(req).then( 
+    function (data) { 
+        console.log("Success Response Status: " + data.status);
+    }, 
+    function (error) { 
+        console.log("Error: " + error.message);
+    }
+);
+```
