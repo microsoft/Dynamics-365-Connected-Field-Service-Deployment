@@ -60,6 +60,7 @@ Please refer to the instructions [here](https://docs.microsoft.com/en-us/dynamic
 7. Click Save.
 
 Example:
+
 ![image](https://user-images.githubusercontent.com/25106863/182724363-f7488f6e-8509-4ba5-b766-ac473396b8c0.png)
 
 ### Upload devicerules.json
