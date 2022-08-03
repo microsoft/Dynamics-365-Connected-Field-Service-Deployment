@@ -50,6 +50,18 @@ Please refer to the instructions [here](https://docs.microsoft.com/en-us/dynamic
 2. Set Default IoT Provide Instance to the IoT Provider Instance created previously
 3. Click Save or Save & Close to save your changes
 
+### Update the service endpoint
+1. Using the Plug-in Registration Tool (available [here](https://docs.microsoft.com/dynamics365/customerengagement/on-premises/developer/download-tools-nuget?view=op-9-1)), login to the org where you're setting up Connected Field Service.
+2. Once connected to the org, find the Service Endpoint called "IoT Message" and click on it.
+3. Click on Update.
+4. For namespace address, find the host name for the Service Bus Namespace deployed to your resource group. Enter this into the Plug-in Registration Tool prefixed by "sb://". It should look something like this - sb://myServiceBusNamespace.servicebus.windows.net
+5. In the Service Bus Namespace resource, there will be a queue with a name ending in "-crm". Copy the full name and enter this as the Topic Name in the Plug-in Registration Tool.
+6. In the Service Bus Namespace resource, navigate to Shared access policies > RootManageSharedAccessKey. Copy the primary key and paste it into the Plug-in Registration Tool for SAS Key.
+7. Click Save.
+
+Example:
+![image](https://user-images.githubusercontent.com/25106863/182724363-f7488f6e-8509-4ba5-b766-ac473396b8c0.png)
+
 ### Upload devicerules.json
 The Stream Analytics job deployed to your resource group will have a reference to a devicerules.json file. This file defines a rule that is useful for creating IoT Alerts when using the thermostat Simulator app. To make use of this, you will need to upload the devicerules.json file to the Azure storage. This file is found in this GitHub repo.
 
