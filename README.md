@@ -86,7 +86,7 @@ If you're working with Azure Time Series Insights, you'll need to update some in
 1. Open up the Connected Field Service app module in your Dynamics 365 org.
 2. Open the browser developer tools and open the console.
 3. Enter and the below script into the console and run it, replacing the Value parameter with your Application (client) Id
-4. Execute the script twice more, replacing the Key first with TSI_PLUGIN_CLIENT_SECRET then with TSI_PLUGIN_AZURE_TENANT_ID, and replacing the Value with the respective values. You can find Tenant id on Azure Portal by going to Home > Azure Active DIrectory > Tenant ID.
+4. Execute the script twice more, replacing the Key first with TSI_PLUGIN_CLIENT_APPLICATION_ID then with TSI_PLUGIN_CLIENT_SECRET, and replacing the Value with the respective values. You can find Tenant id on Azure Portal by going to Home > Azure Active DIrectory > Tenant ID.
 
 ```javascript
 var req = {};
