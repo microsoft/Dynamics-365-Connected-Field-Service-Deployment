@@ -41,6 +41,16 @@
             "toolTip": "Time Series Insights can be included in your deployment to provide you with IoT device insights and analytics."
           },
           {
+            "name": "TimeSeriesInsightsPrerequisites",
+            "type": "Microsoft.Common.InfoBox",
+            "visible": "[basics('mainSection').isTimeSeriesInsight]",
+            "options": {
+              "icon": "Info",
+              "text": "Create an Azure AD application and enter the details below. This application’s details are required for accessing Time Series Insights from Dynamics 365.",
+              "uri": "https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal"
+            }
+          },
+          {
             "name": "ApplicationID",
             "type": "Microsoft.Common.TextBox",
             "label": "Application (client) ID",
