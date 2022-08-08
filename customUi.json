@@ -58,6 +58,15 @@
               "required": true
             }
           },
+	      {
+            "name": "ObjectID",
+            "type": "Microsoft.Common.TextBox",
+            "label": "Object ID",
+            "visible": "[basics('mainSection').isTimeSeriesInsight]",
+            "constraints": {
+              "required": true
+            }
+          },
           {
             "name": "isPowerBI",
             "type": "Microsoft.Common.CheckBox",
@@ -128,6 +137,7 @@
       "DeploySimulator": "[basics('mainSection').DeploySimulator]",
       "ApplicationID": "[basics('mainSection').ApplicationID]",
       "ClientSecretID": "[basics('mainSection').ClientSecretID]",
+      "ObjectID": "[basics('mainSection').ObjectID]",
       "isPowerBI": "[basics('mainSection').isPowerBI]",
       "administratorLogin": "[basics('mainSection').administratorLogin]",
       "administratorLoginPassword": "[basics('mainSection').administratorLoginPassword]"
