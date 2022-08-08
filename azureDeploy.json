@@ -39,8 +39,15 @@
     },
     "CrmURL": {
       "type": "string"
+    },
+    "ApplicationID": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "ObjectID": {
+      "type": "string",
+      "defaultValue": ""
     }
-  
   },
   "variables": {
     "discoveryServerSuffix1":"[split(parameters('CrmURL'),'.')]" ,
@@ -917,6 +924,21 @@
             "[resourceId('Microsoft.TimeSeriesInsights/environments', variables('timeSeriesInsightsName'))]"
           ]
         }
+      ]
+    },
+    {
+      "condition": "[not(empty(parameters('ObjectID')))]",
+      "apiVersion": "2020-05-15",
+      "name": "[concat(variables('timeSeriesInsightsName'), '/', parameters('ApplicationID'))]",
+      "type": "Microsoft.TimeSeriesInsights/environments/accesspolicies",
+      "properties": {
+        "principalObjectId": "[parameters('ObjectID')]",
+        "roles": [
+          "Reader"
+        ]
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.TimeSeriesInsights/environments', variables('timeSeriesInsightsName'))]"
       ]
     },
     /*Iot Hub Consumer Group*/
