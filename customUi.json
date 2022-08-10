@@ -62,6 +62,7 @@
             "name": "ObjectID",
             "type": "Microsoft.Common.TextBox",
             "label": "Object ID",
+            "toolTip": "To get Object ID, Go to Azure Active Directory > Enterprise applications > Search Application by Name > Copy Object ID",
             "visible": "[basics('mainSection').isTimeSeriesInsight]",
             "constraints": {
               "required": true
