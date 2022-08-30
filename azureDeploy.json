@@ -923,24 +923,25 @@
             "[resourceId('Microsoft.Devices/IotHubs', variables('hubName'))]",
             "[resourceId('Microsoft.TimeSeriesInsights/environments', variables('timeSeriesInsightsName'))]"
           ]
+        },
+        {
+          "condition": "[not(empty(parameters('ObjectID')))]",
+          "apiVersion": "2020-05-15",
+          "name": "[variables('timeSeriesInsightsName')]",
+          "type": "accesspolicies",
+          "properties": {
+            "principalObjectId": "[parameters('ObjectID')]",
+            "roles": [
+              "Reader"
+            ]
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.TimeSeriesInsights/environments', variables('timeSeriesInsightsName'))]"
+          ]
         }
       ]
     },
-    {
-      "condition": "[not(empty(parameters('ObjectID')))]",
-      "apiVersion": "2020-05-15",
-      "name": "[concat(variables('timeSeriesInsightsName'), '/', parameters('ApplicationID'))]",
-      "type": "Microsoft.TimeSeriesInsights/environments/accesspolicies",
-      "properties": {
-        "principalObjectId": "[parameters('ObjectID')]",
-        "roles": [
-          "Reader"
-        ]
-      },
-      "dependsOn": [
-        "[resourceId('Microsoft.TimeSeriesInsights/environments', variables('timeSeriesInsightsName'))]"
-      ]
-    },
+    
     /*Iot Hub Consumer Group*/
     {
       "apiVersion": "2017-01-19",
