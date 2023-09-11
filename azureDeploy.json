@@ -1109,7 +1109,7 @@
       },
       "resources": [
         {
-          "name": "MSDeploy",
+          "name": "ZipDeploy",
           "type": "extensions",
           "location": "[resourceGroup().location]",
           "apiVersion": "2018-11-01",
@@ -1129,7 +1129,7 @@
           "apiVersion": "2018-11-01",
           "dependsOn": [
             "[concat('Microsoft.Web/Sites/', variables('IotHubAppName'))]",
-            "[concat('Microsoft.Web/Sites/', variables('IotHubAppName'), '/Extensions/MSDeploy')]"
+            "[concat('Microsoft.Web/Sites/', variables('IotHubAppName'), '/Extensions/ZipDeploy')]"
           ],
           "name": "web",
           "properties": {
@@ -1148,7 +1148,7 @@
           "apiVersion": "2018-11-01",
           "dependsOn": [
             "[concat('Microsoft.Web/sites/', variables('IotHubAppName'))]",
-            "[concat('Microsoft.Web/sites/', variables('IotHubAppName'), '/Extensions/MSDeploy')]",
+            "[concat('Microsoft.Web/sites/', variables('IotHubAppName'), '/Extensions/ZipDeploy')]",
             "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
           ],
           "tags": {
@@ -1180,7 +1180,7 @@
       },
       "resources": [
         {
-          "name": "MSDeploy",
+          "name": "ZipDeploy",
           "type": "extensions",
           "location": "[resourceGroup().location]",
           "apiVersion": "2018-11-01",
@@ -1200,7 +1200,7 @@
           "apiVersion": "2018-11-01",
           "dependsOn": [
             "[concat('Microsoft.Web/Sites/', variables('CRMHelperAppName'))]",
-            "[concat('Microsoft.Web/Sites/', variables('CRMHelperAppName'), '/Extensions/MSDeploy')]"
+            "[concat('Microsoft.Web/Sites/', variables('CRMHelperAppName'), '/Extensions/ZipDeploy')]"
           ],
           "name": "web",
           "properties": {
@@ -1219,7 +1219,7 @@
           "apiVersion": "2018-11-01",
           "dependsOn": [
             "[concat('Microsoft.Web/sites/', variables('CRMHelperAppName'))]",
-            "[concat('Microsoft.Web/sites/', variables('CRMHelperAppName'), '/Extensions/MSDeploy')]",
+            "[concat('Microsoft.Web/sites/', variables('CRMHelperAppName'), '/Extensions/ZipDeploy')]",
             "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
           ],
           "tags": {
@@ -1251,7 +1251,7 @@
       },
       "resources": [
         {
-          "name": "MSDeploy",
+          "name": "ZipDeploy",
           "type": "extensions",
           "location": "[resourceGroup().location]",
           "apiVersion": "2018-11-01",
@@ -1271,7 +1271,7 @@
           "apiVersion": "2018-11-01",
           "dependsOn": [
             "[concat('Microsoft.Web/Sites/', variables('QueueMessageParserAppName'))]",
-            "[concat('Microsoft.Web/Sites/', variables('QueueMessageParserAppName'), '/Extensions/MSDeploy')]"
+            "[concat('Microsoft.Web/Sites/', variables('QueueMessageParserAppName'), '/Extensions/ZipDeploy')]"
           ],
           "name": "web",
           "properties": {
@@ -1290,7 +1290,7 @@
           "apiVersion": "2018-11-01",
           "dependsOn": [
             "[concat('Microsoft.Web/sites/', variables('QueueMessageParserAppName'))]",
-            "[concat('Microsoft.Web/sites/', variables('QueueMessageParserAppName'), '/Extensions/MSDeploy')]",
+            "[concat('Microsoft.Web/sites/', variables('QueueMessageParserAppName'), '/Extensions/ZipDeploy')]",
             "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
           ],
           "tags": {
@@ -1323,7 +1323,7 @@
       "resources": [
         {
           "condition":  "[parameters('DeploySimulator')]",
-          "name": "MSDeploy",
+          "name": "ZipDeploy",
           "type": "extensions",
           "location": "[resourceGroup().location]",
           "apiVersion": "2018-11-01",
