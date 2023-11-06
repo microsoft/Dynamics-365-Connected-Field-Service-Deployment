@@ -525,14 +525,7 @@
                   "type": "Http",
                   "inputs": {
                     "body": {
-                      "connectionString": {
-                        "reference": {
-                          "keyVault": {
-                            "id": "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]"
-                          },
-                          "secretName": "[variables('iotHubConnectionStringSecretName')]"
-                        }
-                      },
+                      "connectionString": "@body('Get_secret')?['value']",
                       "DeviceIds": "@{body('GetCRMMessage').messageParameters?.DeviceIds}",
                       "IncludeMetadata": "false"
                     },
@@ -898,6 +891,7 @@
       "dependsOn": [
         "[resourceId('Microsoft.Web/connections', variables('commondataserviceName'))]",
         "[resourceId('Microsoft.Web/connections', variables('connections_SBMessage_name'))]",
+        "[resourceId('Microsoft.Web/connections', variables('keyVaultConnectionName'))]",
         "[resourceId('Microsoft.Devices/IotHubs', variables('hubName'))]",
         "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]",
         "[concat('Microsoft.Web/sites/', variables('CRMHelperAppName'))]",
@@ -918,6 +912,23 @@
         },
         "displayName": "[variables('commondataserviceName')]",
         "parameterValues": {}
+      }
+    },
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "name": "[variables('keyVaultConnectionName')]",
+      "location": "[variables('location')]",
+      "kind": "V1",
+      "properties": {
+        "api": {
+          "id": "[concat('/subscriptions/', variables('subscriptionId'), '/providers/Microsoft.Web/locations/', variables('location'), '/managedApis/', 'keyvault')]"
+        },
+        "parameterValueType": "Alternative",
+        "alternativeParameterValues": {
+          "vaultName": "[variables('keyVaultName')]"
+        },
+        "displayName": "[variables('keyVaultConnectionName')]"
       }
     },
     /*Time Series Insights environment*/
