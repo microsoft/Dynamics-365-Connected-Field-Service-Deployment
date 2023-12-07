@@ -13,6 +13,7 @@ This repo will help you set up and configure Connected Field Service with Azure 
 Connected Field Service for Azure IoT Hub is an add-on solution that brings Azure IoT platform-as-a-service (PaaS) offering into Dynamics 365 for Field Service. With this offering, you can use this template and below instructions to put all the Azure IoT services and Dynamics puzzles together. All Azure IoT services run in your own Azure cloud subscription.
 
 This deployment package will help you:
+
 - Deploy and configure an IoT Hub instance. Connected Field Services uses the IoT Hub to manage the state of registered devices and assets. In addition, the IoT Hub sends commands and notifications to connected devices—and tracks message delivery with acknowledgement receipts.
 - Deploy a device simulation (optional). This is a test web app to emulate the device that is sending commands or receiving commands from the IoT Hub.
 - Deploy Time Series Insight (optional). Time Series Insights can be included in your deployment for detailed device insights and analytics.

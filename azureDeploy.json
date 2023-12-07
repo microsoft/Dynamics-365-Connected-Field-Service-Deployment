@@ -119,7 +119,10 @@
     "SimulatorAppName": "[concat('Simulator',variables('RGName'), variables('uniqueIdentifier'))]",
     "defaultSASKeyName": "RootManageSharedAccessKey",
     "authRuleResourceId": "[resourceId('Microsoft.ServiceBus/namespaces/authorizationRules', variables('serviceBusNamespaceName'), variables('defaultSASKeyName'))]",
-    "rulesOutputNamespace": "[variables('serviceBusNamespaceName')]"
+    "rulesOutputNamespace": "[variables('serviceBusNamespaceName')]",
+    "keyVaultName": "[concat('kv', variables('uniqueIdentifier'))]",
+    "iotHubConnectionStringSecretName": "iotHubConnectionString",
+    "keyVaultConnectionName": "keyvault"
   },
   "resources": [
     /*SBMessage API Connection*/
@@ -452,9 +455,12 @@
     /*CRM-To-IoT-V2 Logic app*/
     {
       "type": "Microsoft.Logic/workflows",
-      "apiVersion": "2017-07-01",
+      "apiVersion": "2019-05-01",
       "name": "[variables('workflows_CRM_To_IoT_V2_name')]",
       "location": "[variables('location')]",
+      "identity": {
+        "type": "SystemAssigned"
+      },
       "properties": {
         "state": "Enabled",
         "definition": {
@@ -495,6 +501,19 @@
             }
           },
           "actions": {
+            "Get_secret": {
+              "inputs": {
+                "host": {
+                  "connection": {
+                    "name": "[concat('@parameters(''$connections'')[''', variables('keyVaultConnectionName'), '''][''connectionId'']')]"
+                  }
+                },
+                "method": "get",
+                "path": "[concat('/secrets/', variables('iotHubConnectionStringSecretName'), '/value')]"
+              },
+              "runAfter": {},
+              "type": "ApiConnection"
+            },
             "RetrieveDeviceTwinsScope": {
               "actions": {
                 "RetrieveDeviceTwins": {
@@ -506,7 +525,7 @@
                   "type": "Http",
                   "inputs": {
                     "body": {
-                      "connectionString": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=',listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys',variables('hubName'),'iothubowner'),'2017-01-19').primaryKey)]",
+                      "connectionString": "@body('Get_secret')?['value']",
                       "DeviceIds": "@{body('GetCRMMessage').messageParameters?.DeviceIds}",
                       "IncludeMetadata": "false"
                     },
@@ -596,7 +615,7 @@
                   "type": "Http",
                   "inputs": {
                     "body": {
-                      "connectionString": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=',listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys',variables('hubName'),'iothubowner'),'2017-01-19').primaryKey)]",
+                      "connectionString": "@body('Get_secret')?['value']",
                       "DeviceIds": "@body('GetCRMMessage').messageParameters.DeviceIds",
                       "DeviceTags": "@body('GetCRMMessage').messageParameters?.IoTDeviceTags",
                       "DeviceProperties": "@body('GetCRMMessage').messageParameters?.IoTDeviceSettings"
@@ -685,7 +704,7 @@
                   "type": "Http",
                   "inputs": {
                     "body": {
-                      "connectionString": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=',listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys',variables('hubName'),'iothubowner'),'2017-01-19').primaryKey)]",
+                      "connectionString": "@body('Get_secret')?['value']",
                       "DeviceId": "@body('GetCRMMessage').messageParameters?.preImageAttributes?.msdyn_deviceid",
                       "DeviceTags": "@body('GetCRMMessage').messageParameters?.attributes?.msdyn_tags",
                       "DeviceProperties": "@body('GetCRMMessage').messageParameters?.attributes?.msdyn_devicesettings"
@@ -721,7 +740,7 @@
                       "type": "Http",
                       "inputs": {
                         "body": {
-                          "connectionString": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=',listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys',variables('hubName'),'iothubowner'),'2017-01-19').primaryKey)]",
+                          "connectionString": "@body('Get_secret')?['value']",
                           "DeviceId": "@body('GetCRMMessage').messageParameters.attributes.msdyn_deviceid",
                           "Message": "@coalesce(body('GetCRMMessage').messageParameters.attributes.msdyn_message, '')"
                         },
@@ -820,7 +839,11 @@
               "type": "If"
             },
             "GetCRMMessage": {
-              "runAfter": {},
+              "runAfter": {
+                "Get_secret": [
+                  "Succeeded"
+                ]
+              },
               "metadata": {
                 "apiDefinitionUrl": "[concat('https://', variables('QueueMessageParserAppName'), '.azurewebsites.net/swagger/docs/v1')]",
                 "swaggerSource": "website"
@@ -847,6 +870,16 @@
                 "connectionId": "[resourceId('Microsoft.Web/connections', variables('connections_SBMessage_name'))]"
 
               },
+              "keyvault": {
+                "connectionId": "[concat('/subscriptions/', variables('subscriptionId'), '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/', variables('keyVaultConnectionName'))]",
+                "connectionName": "[variables('keyVaultConnectionName')]",
+                "connectionProperties": {
+                  "authentication": {
+                    "type": "ManagedServiceIdentity"
+                  }
+                },
+                "id": "[concat('/subscriptions/', variables('subscriptionId'), '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/', variables('keyVaultConnectionName'))]"
+              },
               "commondataservice": {
                 "id": "[concat('/subscriptions/', variables('subscriptionId'), '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/commondataservice')]",
                 "connectionId": "[resourceId('Microsoft.Web/connections', variables('commondataserviceName'))]"
@@ -858,6 +891,7 @@
       "dependsOn": [
         "[resourceId('Microsoft.Web/connections', variables('commondataserviceName'))]",
         "[resourceId('Microsoft.Web/connections', variables('connections_SBMessage_name'))]",
+        "[resourceId('Microsoft.Web/connections', variables('keyVaultConnectionName'))]",
         "[resourceId('Microsoft.Devices/IotHubs', variables('hubName'))]",
         "[concat('Microsoft.ServiceBus/namespaces/', variables('serviceBusNamespaceName'))]",
         "[concat('Microsoft.Web/sites/', variables('CRMHelperAppName'))]",
@@ -878,6 +912,23 @@
         },
         "displayName": "[variables('commondataserviceName')]",
         "parameterValues": {}
+      }
+    },
+    {
+      "type": "Microsoft.Web/connections",
+      "apiVersion": "2016-06-01",
+      "name": "[variables('keyVaultConnectionName')]",
+      "location": "[variables('location')]",
+      "kind": "V1",
+      "properties": {
+        "api": {
+          "id": "[concat('/subscriptions/', variables('subscriptionId'), '/providers/Microsoft.Web/locations/', variables('location'), '/managedApis/', 'keyvault')]"
+        },
+        "parameterValueType": "Alternative",
+        "alternativeParameterValues": {
+          "vaultName": "[variables('keyVaultName')]"
+        },
+        "displayName": "[variables('keyVaultConnectionName')]"
       }
     },
     /*Time Series Insights environment*/
@@ -1342,7 +1393,55 @@
       ],
       "dependsOn": [
         "[concat('Microsoft.Web/serverfarms/', variables('svcPlanName'))]",
-        "[concat('Microsoft.Devices/Iothubs/', variables('hubName'))]"
+        "[concat('Microsoft.Devices/IotHubs/', variables('hubName'))]"
+      ]
+    },
+    {
+      "name": "[variables('keyVaultName')]",
+      "type": "Microsoft.KeyVault/vaults",
+      "apiVersion": "2019-09-01",
+      "location": "[resourceGroup().location]",
+      "tags": {
+      },
+      "properties": {
+        "enabledForDeployment": true,
+        "enabledForTemplateDeployment": true,
+        "enabledForDiskEncryption": false,
+        "tenantId": "[subscription().tenantId]",
+        "enableSoftDelete": false,
+        "accessPolicies": [
+          {
+            "tenantId": "[subscription().tenantId]",
+            "objectId": "[reference(resourceId('Microsoft.Logic/workflows/', variables('workflows_CRM_To_IoT_V2_name')), '2019-05-01', 'full').identity.principalId]",
+            "permissions": {
+              "secrets": [
+                "List",
+                "Get"
+              ]
+            }
+          }
+        ],
+        "sku": {
+          "name": "standard",
+          "family": "A"
+        }
+      },
+      "resources": [
+        {
+          "type": "secrets",
+          "name": "[variables('iotHubConnectionStringSecretName')]",
+          "apiVersion": "2016-10-01",
+          "properties": {
+            "value": "[concat('HostName=', variables('hubName'), '.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=',listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys',variables('hubName'),'iothubowner'),'2017-01-19').primaryKey)]"
+          },
+          "dependsOn": [
+            "[resourceId('Microsoft.KeyVault/vaults', variables('keyVaultName'))]"
+          ]
+        }
+      ],
+      "dependsOn": [
+        "[concat('Microsoft.Devices/IotHubs/', variables('hubName'))]",
+        "[concat('Microsoft.Logic/workflows/', variables('workflows_CRM_To_IoT_V2_name'))]"
       ]
     }
   ],
@@ -1351,25 +1450,9 @@
       "type": "string",
       "value": "[variables('storageAccountName')]"
     },
-    "storageKeys": {
-      "value": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('saApiVersion'))]",
-      "type": "object"
-    },
     "connectionAuthorizationUrl": {
       "type": "string",
       "value": "[concat('#resource/subscriptions/', variables('subscriptionId'), '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/', variables('commondataserviceName'), '/API Connection')]"
-    },
-    "hubKey": {
-      "value": "[listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys', variables('hubName'), 'iothubowner'), '2017-01-19').primaryKey]",
-      "type": "string"
-    },
-    "NamespaceConnectionString": {
-      "type": "string",
-      "value": "[listkeys(variables('authRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
-    },
-    "SharedAccessPolicyPrimaryKey": {
-      "type": "string",
-      "value": "[listkeys(variables('authRuleResourceId'), variables('sbVersion')).primaryKey]"
     },
     "sqlServerName": {
       "condition": "[parameters('isPowerBI')]",
