@@ -52,18 +52,18 @@
             "name": "ApplicationID",
             "type": "Microsoft.Common.TextBox",
             "label": "Application (client) ID",
-            "visible": "[basics('mainSection').isTimeSeriesInsight]",
+            "visible": false,
             "constraints": {
-              "required": true
+              "required": false
             }
           },
           {
             "name": "ClientSecretID",
             "type": "Microsoft.Common.TextBox",
             "label": "Client Secret",
-            "visible": "[basics('mainSection').isTimeSeriesInsight]",
+            "visible": false,
             "constraints": {
-              "required": true
+              "required": false
             }
           },
 	        {
@@ -71,9 +71,9 @@
             "type": "Microsoft.Common.TextBox",
             "label": "Object ID",
             "toolTip": "To get Object ID, Go to Azure Active Directory > Enterprise applications > Search Application by Name > Select Application > Copy Object ID",
-            "visible": "[basics('mainSection').isTimeSeriesInsight]",
+            "visible": false,
             "constraints": {
-              "required": true
+              "required": false
               }
           },
           {
@@ -142,10 +142,7 @@
       "crmOrgId": "[basics('mainSection').crmOrgId]",
       "CrmURL": "[basics('mainSection').CrmURL]",
       "existingSQLServer": "[basics('mainSection').existingSQLServer.name]",
-      "isTimeSeriesInsight": "[basics('mainSection').isTimeSeriesInsight]",
-      "DeploySimulator": "[basics('mainSection').DeploySimulator]",
       "ApplicationID": "[basics('mainSection').ApplicationID]",
-      "ClientSecretID": "[basics('mainSection').ClientSecretID]",
       "ObjectID": "[basics('mainSection').ObjectID]",
       "isPowerBI": "[basics('mainSection').isPowerBI]",
       "administratorLogin": "[basics('mainSection').administratorLogin]",

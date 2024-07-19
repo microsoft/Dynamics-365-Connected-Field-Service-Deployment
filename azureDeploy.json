@@ -3,7 +3,8 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "DeploySimulator": {
-      "type": "bool"
+      "type": "bool",
+      "defaultValue": false
     },
     "isTimeSeriesInsight": {
       "type": "bool",
@@ -42,6 +43,10 @@
       "type": "string"
     },
     "ApplicationID": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "ClientSecretID": {
       "type": "string",
       "defaultValue": ""
     },
@@ -1308,7 +1313,7 @@
       ]
     },
     {
-      "condition": "[parameters('DeploySimulator')]",
+      "condition": false,
       "name": "[variables('SimulatorAppName')]",
       "type": "Microsoft.Web/sites",
       "location": "[resourceGroup().location]",
@@ -1323,7 +1328,7 @@
       },
       "resources": [
         {
-          "condition":  "[parameters('DeploySimulator')]",
+          "condition":  false,
           "name": "ZipDeploy",
           "type": "extensions",
           "location": "[resourceGroup().location]",
@@ -1352,25 +1357,9 @@
       "type": "string",
       "value": "[variables('storageAccountName')]"
     },
-    "storageKeys": {
-      "value": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), variables('saApiVersion'))]",
-      "type": "object"
-    },
     "connectionAuthorizationUrl": {
       "type": "string",
       "value": "[concat('#resource/subscriptions/', variables('subscriptionId'), '/resourceGroups/', resourceGroup().name, '/providers/Microsoft.Web/connections/', variables('commondataserviceName'), '/API Connection')]"
-    },
-    "hubKey": {
-      "value": "[listKeys(resourceId('Microsoft.Devices/IotHubs/Iothubkeys', variables('hubName'), 'iothubowner'), '2017-01-19').primaryKey]",
-      "type": "string"
-    },
-    "NamespaceConnectionString": {
-      "type": "string",
-      "value": "[listkeys(variables('authRuleResourceId'), variables('sbVersion')).primaryConnectionString]"
-    },
-    "SharedAccessPolicyPrimaryKey": {
-      "type": "string",
-      "value": "[listkeys(variables('authRuleResourceId'), variables('sbVersion')).primaryKey]"
     },
     "sqlServerName": {
       "condition": "[parameters('isPowerBI')]",
