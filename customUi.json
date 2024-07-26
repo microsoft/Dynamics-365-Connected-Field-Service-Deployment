@@ -32,30 +32,38 @@
             "name": "DeploySimulator",
             "type": "Microsoft.Common.CheckBox",
             "label": "Deploy Simulator (optional)",
-            "toolTip": "Deploying this will help you simulate an IoT device to help you test our various flows in Connected Field Service."
+            "toolTip": "Deploying this will help you simulate an IoT device to help you test our various flows in Connected Field Service.",
+            "visible": false,
+            "constraints": {
+              "required": false
+            }
           },
           {
             "name": "isTimeSeriesInsight",
             "type": "Microsoft.Common.CheckBox",
             "label": "Deploy Azure Time Series Insights (optional)",
-            "toolTip": "Time Series Insights can be included in your deployment to provide you with IoT device insights and analytics."
+            "toolTip": "Time Series Insights can be included in your deployment to provide you with IoT device insights and analytics.",
+            "visible": false,
+            "constraints": {
+              "required": false
+            }
           },
           {
             "name": "ApplicationID",
             "type": "Microsoft.Common.TextBox",
             "label": "Application (client) ID",
-            "visible": "[basics('mainSection').isTimeSeriesInsight]",
+            "visible": false,
             "constraints": {
-              "required": true
+              "required": false
             }
           },
           {
             "name": "ClientSecretID",
             "type": "Microsoft.Common.TextBox",
             "label": "Client Secret",
-            "visible": "[basics('mainSection').isTimeSeriesInsight]",
+            "visible": false,
             "constraints": {
-              "required": true
+              "required": false
             }
           },
 	        {
@@ -63,9 +71,9 @@
             "type": "Microsoft.Common.TextBox",
             "label": "Object ID",
             "toolTip": "To get Object ID, Go to Azure Active Directory > Enterprise applications > Search Application by Name > Select Application > Copy Object ID",
-            "visible": "[basics('mainSection').isTimeSeriesInsight]",
+            "visible": false,
             "constraints": {
-              "required": true
+              "required": false
               }
           },
           {
@@ -134,10 +142,7 @@
       "crmOrgId": "[basics('mainSection').crmOrgId]",
       "CrmURL": "[basics('mainSection').CrmURL]",
       "existingSQLServer": "[basics('mainSection').existingSQLServer.name]",
-      "isTimeSeriesInsight": "[basics('mainSection').isTimeSeriesInsight]",
-      "DeploySimulator": "[basics('mainSection').DeploySimulator]",
       "ApplicationID": "[basics('mainSection').ApplicationID]",
-      "ClientSecretID": "[basics('mainSection').ClientSecretID]",
       "ObjectID": "[basics('mainSection').ObjectID]",
       "isPowerBI": "[basics('mainSection').isPowerBI]",
       "administratorLogin": "[basics('mainSection').administratorLogin]",
