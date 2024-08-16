@@ -1,12 +1,14 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "DeploySimulator": {
-      "type": "bool"
+      "type": "bool",
+      "defaultValue": false
     },
     "isTimeSeriesInsight": {
-      "type": "bool"
+      "type": "bool",
+      "defaultValue": false
     },
     "isPowerBI": {
       "type": "bool"
@@ -41,6 +43,10 @@
       "type": "string"
     },
     "ApplicationID": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "ClientSecretID": {
       "type": "string",
       "defaultValue": ""
     },
@@ -1358,7 +1364,7 @@
       ]
     },
     {
-      "condition": "[parameters('DeploySimulator')]",
+      "condition": false,
       "name": "[variables('SimulatorAppName')]",
       "type": "Microsoft.Web/sites",
       "location": "[resourceGroup().location]",
@@ -1373,7 +1379,7 @@
       },
       "resources": [
         {
-          "condition":  "[parameters('DeploySimulator')]",
+          "condition":  false,
           "name": "ZipDeploy",
           "type": "extensions",
           "location": "[resourceGroup().location]",

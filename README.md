@@ -3,7 +3,7 @@
 ## Overview
 
 Connected Field Service enables organizations to transform the way they provide service from a costly break-fix model to a proactive and predictive service model through the combination of IoT diagnostics, scheduling, asset maintenance, and inventory on the same platform.
-There are three ways you can use to connect IoT-enabled devices into the Field Service solution:
+There are three ways you can connect IoT-enabled devices to the Field Service solution:
 
 - Connected Field Service for [Azure IoT Hub](https://azure.microsoft.com/services/iot-hub/)
 - Connected Field Service for non-Azure IoT providers using the extensible IoT provider framework
@@ -29,4 +29,4 @@ By deploying this template, you confirm that you’ve read and agree to the [Ter
 
 ## Set up IoT Hub for Connected Field Service
 
-After deploying Azure resource from the ARM template, follow the steps in our documentation to configure IoT settings: [Installation and setup - Connected Field Service for Azure IoT Hub](https://docs.microsoft.com/dynamics365/field-service/installation-setup-iothub)
+After deploying Azure resource from the ARM template, follow the steps in this article: [Install and configure Connected Field Service for Azure IoT Hub](https://docs.microsoft.com/dynamics365/field-service/installation-setup-iothub).
