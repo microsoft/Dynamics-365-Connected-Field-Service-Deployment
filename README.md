@@ -8,14 +8,12 @@ There are three ways you can connect IoT-enabled devices to the Field Service so
 - Connected Field Service for [Azure IoT Hub](https://azure.microsoft.com/services/iot-hub/)
 - Connected Field Service for non-Azure IoT providers using the extensible IoT provider framework
 
-This repo will help you set up and configure Connected Field Service with Azure IoT Hub. For more information on using other providers, please see our documentation page here: [Connected Field Service - Overview | Microsoft Docs](https://docs.microsoft.com/dynamics365/field-service/connected-field-service)
+This repo will help you set up and configure Connected Field Service with Azure IoT Hub. For more information on using other providers, please see our documentation page here: [Connected Field Service - Overview | Microsoft Learn](https://learn.microsoft.com/dynamics365/field-service/connected-field-service)
 
 Connected Field Service for Azure IoT Hub is an add-on solution that brings Azure IoT platform-as-a-service (PaaS) offering into Dynamics 365 for Field Service. With this offering, you can use this template and below instructions to put all the Azure IoT services and Dynamics puzzles together. All Azure IoT services run in your own Azure cloud subscription.
 
 This deployment package will help you:
 - Deploy and configure an IoT Hub instance. Connected Field Services uses the IoT Hub to manage the state of registered devices and assets. In addition, the IoT Hub sends commands and notifications to connected devices—and tracks message delivery with acknowledgement receipts.
-- Deploy a device simulation (optional). This is a test web app to emulate the device that is sending commands or receiving commands from the IoT Hub.
-- Deploy Time Series Insight (optional). Time Series Insights can be included in your deployment for detailed device insights and analytics.
 - Deploy PowerBI (optional). Microsoft Power BI for device analytics can be included in your deployment. Choosing this will deploy two additional resources, Azure Streaming Analytics and SQL Server database.
 
 ## Deploy the ARM template
