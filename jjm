@@ -1,0 +1,58 @@
+# These character sets have been filtered to remove characters
+# that visually resemble the letters 'D', 'O', 'B' (or 'd', 'o', 'b', and the numeral '0').
+
+# <ASCII/Latin1>
+# Removed: B, b, D, d, 0, Ð, Ø, ß
+# Assumed 'O' and 'o' would be removed if present in a full alphabet listing.
+ascii_latin1 = [
+    "AaCcEeFfGgHhIiJj",
+    "123456789#:+=(){}[]",
+    "«½ĞÀÁÂÃÄÅÇ"
+]
+
+# <IPA,Greek,Cyrillic>
+# Removed from IPA: ɘ, ɞ, ɤ, ɷ
+# Removed from Greek: Β, β, Δ, δ
+# Removed from Cyrillic: Б, б, Д, д, Ѡ
+# Assumed Greek 'Ο', 'ο' and Cyrillic 'О', 'о' would be removed if present.
+ipa_greek_cyrillic = [
+    "ɐɕɟɫɮɰɻʁʃʆʎʞʢʫʭʯ",
+    "ΑαΓγΕεΖζΗηΘθΙιΚκ",
+    "ЖжПпФфЧчЪъЭэѤѬӜ"
+]
+
+# <Hebrew, Arabic>
+# Removed from Hebrew: ב, ד, ם, ס
+# Removed from Arabic: ب, د, ه, و, ٠, ٥, ٦
+hebrew_arabic = [
+    "אגהוזחטיךכלמןנעף",
+    "اجزحطي١٢٣٤٧٨٩"
+]
+
+# <Devanagari, Tamil>
+# Removed from Devanagari: ०, ओ, औ
+# Removed from Tamil: ௦
+devanagari_tamil = [
+    "१२३४५६७८९अआइईउऊएऐ",
+    "௧௨௩௪௫௬௭௮௯அஇஉஎ"
+]
+
+# <East Asian>
+# Removed from CJK numerals: 〇
+# Removed from Korean: 모, 뵤
+# Removed from Japanese: お, オ
+east_asian = [
+    "一二三四五六七八九",
+    "汉字漢字人木火土金水",
+    "가냐더려수유즈치",
+    "あいうえアイウエ"
+]
+
+# Example of how to print them or access them:
+# print("ASCII/Latin1:")
+# for line in ascii_latin1:
+#     print(line)
+# print("\nIPA, Greek, Cyrillic:")
+# for line in ipa_greek_cyrillic:
+#     print(line)
+# # ... and so on for the other lists
